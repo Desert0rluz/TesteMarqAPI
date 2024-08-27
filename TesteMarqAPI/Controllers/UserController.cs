@@ -132,7 +132,29 @@ public class UserController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetUsers()
     {
-        var users = await _context.Users.ToListAsync();
+        var users = await _context.Users
+            .Select(user => new
+            {
+                user.UserId,
+                user.UserName,
+                user.UserEmail,
+                user.UserCEP,
+                user.AddressID,
+                Address = _context.Addresses
+                    .Where(e => e.AddressID == user.AddressID)
+                    .Select(e => new
+                    {
+                        e.AddressID,
+                        e.Cep,
+                        e.Logradouro,
+                        e.Bairro,
+                        e.Localidade,
+                        e.Uf
+                    })
+                    .FirstOrDefault()
+            })
+            .ToListAsync();
+
         return Ok(users);
     }
 }
