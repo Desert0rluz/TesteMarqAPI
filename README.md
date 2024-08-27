@@ -7,18 +7,18 @@ API restful sistema de Leilão de Carro.
 estruturar o projeto:
 
     Modelos (Models): Representação dos dados, como Usuários, Carros e Lances.
-    Controladores (Controllers): Onde vamos implementar as rotas para manipular os dados.
+    Controladores (Controllers): rotas para manipular os dados.
     Serviços (Services): Lógica de negócios, como integração com o ViaCEP, envio de e-mails, etc.
-    Repositórios (Repositories): Para acesso e manipulação dos dados no banco de dados.
-    Agendamento de Tarefas (Tasks): Para enviar os e-mails de notificação diariamente às 08:00.
+    Data (Repositories): Para acesso e manipulação dos dados no banco de dados.
 
 2. Criando os Modelos
 
 modelos principais:
 
-    Usuário: com propriedades como Id, Nome, Email, Senha, Endereco, CEP.
-    Carro: com propriedades como Id, Marca, Modelo, Ano, PrecoMinimo.
-    Lance: com propriedades como Id, UsuarioId, CarroId, Valor, DataHora.
+    User: com propriedades como Id, Nome, Email, Senha, , CEP.
+    Address: com propriedades Id e todas as informações vindas do ViaCEP.
+    Car: com propriedades como Id, Marca, Modelo, Ano, PrecoMinimo.
+    Bid: com propriedades como Id, UsuarioId, CarroId, Valor, DataHora.
 
 3. Criação do Cadastro de Usuário
 
@@ -48,21 +48,17 @@ Aqui está uma visão geral dos endpoints que você pode precisar implementar:
     Usuário
         POST /api/usuarios - Criar um novo usuário.
         GET /api/usuarios/{id} - Obter detalhes de um usuário.
+	PUT  /api/usuarios/{id} - Editar Usuario.
+	DELETE /api/usuarios/{id} - Deletar Usuario
 
     Carro
         GET /api/carros - Listar todos os carros.
         POST /api/carros - Criar um novo carro.
+	PUT /api/carros/{id} - Editar carro.
         DELETE /api/carros/{id} - Deletar um carro.
 
     Lance
-        POST /api/carros/{carroId}/lances - Dar um lance em um carro.
-
-9. Pontos de Atenção
-
-    Validação e Autenticação: Lembre-se de incluir autenticação para proteger as rotas e garantir que apenas usuários autorizados possam criar, deletar carros ou dar lances.
-    Integração com ViaCEP: Ao cadastrar o usuário, ao inserir o CEP, vamos fazer uma chamada para a API ViaCEP para preencher automaticamente o endereço.
-    Envio de E-mails: Para o envio de e-mails, você pode utilizar o serviço SmtpClient do .NET, ou um serviço externo como SendGrid.
-
-10. Tarefas Agendadas
-
-Você pode usar o Hangfire ou outro serviço de agendamento de tarefas para garantir que os e-mails sejam enviados diariamente às 08:00.
+        POST /api/bids/{BidId} - Dar um lance em um carro.
+	GET /api/bids/{BidId} - Consultar um lance em um carro.
+	PUT /api/bids/{BidId} - Editar um lance em um carro.
+	DELETE /api/bids/{BidId} - Deletar um lance em um carro.
