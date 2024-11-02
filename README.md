@@ -10,19 +10,19 @@ Requisitos e Implementação
 2. Implementação do CRUD para Company, Employee e Pontos
 2.1 - Cadastro Único de Documentos
 
-    Ao adicionar uma nova empresa ou funcionário, é feita a verificação para garantir que o documento não esteja em uso. Essa validação é realizada nas classes CompanyService e EmployeeService.
+   Ao adicionar uma nova empresa ou funcionário, é feita a verificação para garantir que o documento não esteja em uso. Essa validação é realizada nas classes CompanyService e EmployeeService.
 
 2.2 - Limitação de Caracteres
 
-    Os campos de nome em ambas as entidades (Company e Employee) foram limitados a 100 caracteres. Isso é validado durante o cadastro e atualização.
+Os campos de nome em ambas as entidades (Company e Employee) foram limitados a 100 caracteres. Isso é validado durante o cadastro e atualização.
 
 2.3 - Exclusões Lógicas
 
-    Implementou-se o conceito de soft delete, onde as entidades não são removidas fisicamente do banco de dados, mas marcadas como excluídas através de uma propriedade IsDeleted. Isso é realizado nos métodos DeleteAsync de EmployeeService e CompanyService.
+Implementou-se o conceito de soft delete, onde as entidades não são removidas fisicamente do banco de dados, mas marcadas como excluídas através de uma propriedade IsDeleted. Isso é realizado nos métodos DeleteAsync de EmployeeService e CompanyService.
 
 2.4 - Propriedade PIN
 
-    A entidade Employee foi enriquecida com uma nova propriedade chamada PIN, que é única e possui um limite de 4 caracteres. O cadastro do funcionário exige a inclusão do PIN e a verificação da unicidade é realizada no método AddEmployeeAsync, o PIN é utlizado posteriormente para o registro do ponto.
+A entidade Employee foi enriquecida com uma nova propriedade chamada PIN, que é única e possui um limite de 4 caracteres. O cadastro do funcionário exige a inclusão do PIN e a verificação da unicidade é realizada no método AddEmployeeAsync, o PIN é utlizado posteriormente para o registro do ponto.
 
 3. Registro de Ponto
 3.1 - Endpoint para Registro de Ponto
@@ -38,9 +38,9 @@ Estrutura do Código
 
 O código está dividido em serviços que implementam as interfaces correspondentes, proporcionando uma arquitetura limpa e separando a lógica de negócios da lógica de acesso a dados. As principais classes incluem:
 
-    EmployeeService: Gerencia operações relacionadas a funcionários, como adição, atualização e exclusão lógica.
-    CompanyService: Gerencia operações relacionadas a empresas, incluindo a validação de documentos.
-    RegistroPontoService: Responsável por registrar pontos e recuperar informações de registro.
+EmployeeService: Gerencia operações relacionadas a funcionários, como adição, atualização e exclusão lógica.
+CompanyService: Gerencia operações relacionadas a empresas, incluindo a validação de documentos.
+RegistroPontoService: Responsável por registrar pontos e recuperar informações de registro.
 
 Conclusão
 
