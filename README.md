@@ -1,64 +1,46 @@
-# TesteMarqAPI
-API restful sistema de Leilão de Carro.
+Visão Geral
 
+Este sistema de gerenciamento de tarefas foi desenvolvido em C# utilizando .NET 8 e Entity Framework Core com SQLite como banco de dados. O objetivo principal é fornecer uma interface para gerenciar empresas e funcionários, além de registrar e relatar pontos de trabalho.
+Requisitos e Implementação
+1. Configuração do Banco de Dados
 
-1. Planejamento e Estrutura do Projeto
+    O sistema foi configurado para utilizar o SQLite como banco de dados, garantindo simplicidade e portabilidade. O Entity Framework Core foi utilizado para facilitar a interação com o banco de dados.
 
-estruturar o projeto:
+2. Implementação do CRUD para Company e Employee
+2.1 - Cadastro Único de Documentos
 
-    Modelos (Models): Representação dos dados, como Usuários, Carros e Lances.
-    Controladores (Controllers): rotas para manipular os dados.
-    Serviços (Services): Lógica de negócios, como integração com o ViaCEP, envio de e-mails, etc.
-    Data (Repositories): Para acesso e manipulação dos dados no banco de dados.
+    Ao adicionar uma nova empresa ou funcionário, é feita a verificação para garantir que o documento não esteja em uso. Essa validação é realizada nas classes CompanyService e EmployeeService.
 
-2. Criando os Modelos
+2.2 - Limitação de Caracteres
 
-modelos principais:
+    Os campos de nome em ambas as entidades (Company e Employee) foram limitados a 100 caracteres. Isso é validado durante o cadastro e atualização.
 
-    User: com propriedades como Id, Nome, Email, Senha, , CEP.
-    Address: com propriedades Id e todas as informações vindas do ViaCEP.
-    Car: com propriedades como Id, Marca, Modelo, Ano, PrecoMinimo.
-    Bid: com propriedades como Id, UsuarioId, CarroId, Valor, DataHora.
+2.3 - Exclusões Lógicas
 
-3. Criação do Cadastro de Usuário
+    Implementou-se o conceito de soft delete, onde as entidades não são removidas fisicamente do banco de dados, mas marcadas como excluídas através de uma propriedade IsDeleted. Isso é realizado nos métodos DeleteAsync de EmployeeService e CompanyService.
 
-    Cadastro de Usuário: Ao cadastrar um usuário, ao inserir o CEP, faremos uma chamada à API do ViaCEP para preencher automaticamente o endereço.
+2.4 - Propriedade PIN
 
-4. Manipulação de Carros
+    A entidade Employee foi enriquecida com uma nova propriedade chamada PIN, que é única e possui um limite de 4 caracteres. O cadastro do funcionário exige a inclusão do PIN e a verificação da unicidade é realizada no método AddEmployeeAsync.
 
-    Visualizar Carros: Um endpoint para listar todos os carros disponíveis.
-    Criar/Deletar Carros: Endpoints para adicionar novos carros ou remover carros do sistema.
+3. Registro de Ponto
+3.1 - Endpoint para Registro de Ponto
 
-5. Sistema de Lances
+    Foi criado um endpoint que permite ao usuário registrar ponto informando o PIN do funcionário. O serviço RegistroPontoService trata da validação do PIN e do registro no banco de dados.
 
-    Dar Lance em um Carro: Endpoint para usuários darem lances em carros específicos.
+4. Relatório de Ponto
+4.1 - Endpoint de Relatório
 
-6. Notificação de Vencedor
+    Um endpoint foi desenvolvido para gerar relatórios de pontos, permitindo filtrar por data de início, data de fim e documento (opcional). O retorno inclui informações como: Data, Nome do Funcionário, Documento, Quantidade de Pontos no Dia, Total Trabalhado, Total de Horas Extras e Dia da Semana.
 
-    Notificação de Vencedor: Quando um usuário ganha o leilão, ele é notificado por e-mail.
+Estrutura do Código
 
-7. Tarefa Agendada
+O código está dividido em serviços que implementam as interfaces correspondentes, proporcionando uma arquitetura limpa e separando a lógica de negócios da lógica de acesso a dados. As principais classes incluem:
 
-    Envio de E-mails: Uma rotina diária que envia e-mails às 08:00 para os ganhadores dos leilões.
+    EmployeeService: Gerencia operações relacionadas a funcionários, como adição, atualização e exclusão lógica.
+    CompanyService: Gerencia operações relacionadas a empresas, incluindo a validação de documentos.
+    RegistroPontoService: Responsável por registrar pontos e recuperar informações de registro.
 
-8. Detalhamento dos Endpoints
+Conclusão
 
-Aqui está uma visão geral dos endpoints que você pode precisar implementar:
-
-    Usuário
-        POST /api/usuarios - Criar um novo usuário.
-        GET /api/usuarios/{id} - Obter detalhes de um usuário.
-	PUT  /api/usuarios/{id} - Editar Usuario.
-	DELETE /api/usuarios/{id} - Deletar Usuario
-
-    Carro
-        GET /api/carros - Listar todos os carros.
-        POST /api/carros - Criar um novo carro.
-	PUT /api/carros/{id} - Editar carro.
-        DELETE /api/carros/{id} - Deletar um carro.
-
-    Lance
-        POST /api/bids/{BidId} - Dar um lance em um carro.
-	GET /api/bids/{BidId} - Consultar um lance em um carro.
-	PUT /api/bids/{BidId} - Editar um lance em um carro.
-	DELETE /api/bids/{BidId} - Deletar um lance em um carro.
+A solução atende a todos os requisitos obrigatórios propostos para o teste, garantindo uma estrutura robusta para gerenciamento de tarefas, com foco em práticas de desenvolvimento limpas e eficientes.
