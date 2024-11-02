@@ -4,3 +4,8 @@
 
 /TesteMarqAPI/.vs
 /TesteMarqAPI/obj
+/Prova.MarQ/.vs
+/Prova.MarQ/1. Presentation/Prova.MarQ.API/Migrations
+/Prova.MarQ/1. Presentation/Prova.MarQ.API/obj
+/Prova.MarQ/2. Business/Prova.MarQ.Domain/obj
+/Prova.MarQ/3. Infrastructure/Prova.MarQ.Infra/obj

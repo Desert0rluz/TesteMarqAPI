@@ -1,6 +1,0 @@
-@TesteMarqAPI_HostAddress = http://localhost:5064
-
-GET {{TesteMarqAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
