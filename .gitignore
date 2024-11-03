@@ -9,3 +9,6 @@
 /Prova.MarQ/1. Presentation/Prova.MarQ.API/obj
 /Prova.MarQ/2. Business/Prova.MarQ.Domain/obj
 /Prova.MarQ/3. Infrastructure/Prova.MarQ.Infra/obj
+/Prova.MarQ/1. Presentation/Prova.MarQ.API/bin/Debug/net8.0
+/Prova.MarQ/2. Business/Prova.MarQ.Domain/bin/Debug/net8.0
+/Prova.MarQ/3. Infrastructure/Prova.MarQ.Infra/bin/Debug/net8.0

@@ -2,7 +2,6 @@
 using Prova.MarQ.Domain.Entities;
 using Prova.MarQ.Business.Interfaces;
 
-
 namespace Prova.MarQ.API.Controllers;
 
 [Route("api/[controller]")]
@@ -24,16 +23,28 @@ public class RegistroPontoController : ControllerBase
     }
 
     [HttpGet("funcionario/{id}")]
-    public async Task<ActionResult<IQueryable<RegistroPonto>>> ObterRegistrosPorFuncionario(Guid id)
+    public async Task<ActionResult<IQueryable<RegistroPonto>>> ObterRegistrosPorFuncionario(
+        Guid id, DateTime dataInicio, DateTime dataFim)
     {
-        var registros = await _registroPontoService.ObterRegistrosPorFuncionarioAsync(id);
+        if (dataInicio == default || dataFim == default)
+        {
+            return BadRequest("Data de início e data de fim são obrigatórias.");
+        }
+
+        var registros = await _registroPontoService.ObterRegistrosPorFuncionarioAsync(id, dataInicio, dataFim);
         return Ok(registros);
     }
 
     [HttpGet("empresa/{id}")]
-    public async Task<ActionResult<IQueryable<RegistroPonto>>> ObterRegistrosPorEmpresa(Guid id)
+    public async Task<ActionResult<IQueryable<RegistroPonto>>> ObterRegistrosPorEmpresa(
+        Guid id, DateTime dataInicio, DateTime dataFim)
     {
-        var registros = await _registroPontoService.ObterRegistrosPorEmpresaAsync(id);
+        if (dataInicio == default || dataFim == default)
+        {
+            return BadRequest("Data de início e data de fim são obrigatórias.");
+        }
+
+        var registros = await _registroPontoService.ObterRegistrosPorEmpresaAsync(id, dataInicio, dataFim);
         return Ok(registros);
     }
 

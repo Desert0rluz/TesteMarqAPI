@@ -20,7 +20,7 @@ public class CompanyService : ICompanyService
             Document = c.Document
         });
     }
-    public async Task<CompanyDTO?> GetCompanyByIdAsync(Guid id)
+    public async Task<CompanyDTO> GetCompanyByIdAsync(Guid id)
     {
         var company = await _companyRepository.GetByIdAsync(id);
         return company == null ? null : new CompanyDTO
