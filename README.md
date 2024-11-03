@@ -32,7 +32,7 @@ A entidade Employee foi enriquecida com uma nova propriedade chamada PIN, que é
 4. Relatório de Ponto
 4.1 - Endpoint de Relatório
 
-    Um endpoint foi desenvolvido para gerar relatórios de pontos, permitindo filtrar por Funcionario e Empresa. O retorno inclui informações como: Data, Nome do Funcionário, Documento, Quantidade de Pontos no Dia e Empresa.
+    Um endpoint foi desenvolvido para gerar relatórios de pontos, permitindo filtrar por Funcionario e Empresa data de inicio e data final. O retorno inclui informações como: Data, Nome do Funcionário, Documento, Quantidade de Pontos no Dia e Empresa.
 
 Estrutura do Código
 
