@@ -35,19 +35,16 @@ public class RegistroPontoService : IRegistroPontoService
 
         return registroPonto;
     }
-
     public async Task<IQueryable<RegistroPonto>> ObterRegistrosPorFuncionarioAsync(Guid idFuncionario, DateTime dataInicio, DateTime dataFim)
     {
         var registros = await _registroPontoRepository.GetByEmployeeIdAsync(idFuncionario);
         return registros.Where(r => r.Ponto.Date >= dataInicio && r.Ponto.Date <= dataFim);
     }
-
     public async Task<IQueryable<RegistroPonto>> ObterRegistrosPorEmpresaAsync(Guid idEmpresa, DateTime dataInicio, DateTime dataFim)
     {
         var registros = await _registroPontoRepository.GetByCompanyIdAsync(idEmpresa);
         return registros.Where(r => r.Ponto.Date >= dataInicio && r.Ponto.Date <= dataFim);
     }
-
     public async Task<bool> ExcluirRegistroAsync(Guid idRegistro)
     {
         return await _registroPontoRepository.SoftDeleteAsync(idRegistro);
